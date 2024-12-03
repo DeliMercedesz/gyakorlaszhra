@@ -27,15 +27,26 @@
     </style>
 </head>
 <body>
+    <!-- Könyv törlése -->
+    <p><input id="torlesId" type="number" placeholder="Add meg a törlendő könyv ID-ját"></p>
+    <p><button id="torlesGomb">Könyv törlése</button></p>
+
+
+
+
+
     <!-- UJ KÖNYV-->
     <p><input id="cim" type="text" placeholder="Add meg a könyv címét"></p>
-    <p><input id="szerzo" type="text"  placeholder="Add meg a könyv szerzőjét"></p>
-    <p><input id="ev" type="text"  placeholder="Add meg a könyv évét"></p>
+    <p><input id="szerzo" type="text" placeholder="Add meg a könyv szerzőjét"></p>
+    <p><input id="ev" type="text" placeholder="Add meg a könyv évét"></p>
     <p><input id="mufaj" type="text" placeholder="műfaját"></p>
     <p><input id="elerheto" type="checkbox" placeholder="elérhető?"></p>
 
     <p><button id="ujkonyvgomb">Új könyv</button></p>
-    
+
+
+
+
     <!-- GOMB AZ ADAT BETÖLTÉSHEZ-->
     <p><button id="megjelenítőGomb">Összes könyv megjelenítése</button></p>
 
@@ -57,6 +68,11 @@
             <!--Ezzel hivatkozunk a táblára később-->
         </tbody>
     </table>
+
+
+
+
+
     <!-- Itt jön a script, az api/Book a controllers api-ban van -->
     <script>
         //itt van az uj konyv hozzáadása
@@ -90,7 +106,33 @@
         });
 
 
-        //Itt csináljuk a gombos részt
+
+        // Könyv törlése az azonosító alapján
+        document.getElementById("torlesGomb").addEventListener("click", _ => {
+            const bookId = document.getElementById("torlesId").value;
+
+            if (!bookId) {
+                alert("Kérlek, add meg a törlendő könyv ID-ját!");
+                return;
+            }
+
+            fetch(`api/book/${bookId}`, {
+                method: "DELETE"
+            })
+                .then(v => {
+                    if (v.ok) {
+                        alert("A könyv sikeresen törölve!");
+                        // Frissítsd a táblázatot, ha szükséges
+                        document.getElementById("megjelenítőGomb").click();
+                    } else {
+                        alert("Hiba történt a könyv törlése során!");
+                    }
+                })
+                .catch(err => console.error("Hiba történt:", err));
+        });
+
+
+        //Itt csináljuk a gombos részt amikor megjelenítjük
         document.getElementById("megjelenítőGomb").addEventListener("click", _ => {
             //Adatok megjelenítése
             fetch("api/Book")
@@ -104,13 +146,13 @@
                         let tr = document.createElement("tr");
                         //itt megkell nézni milyen táblák vannak
                         tr.innerHTML = `
-                                                        <td>${e.id}</td>
-                                                        <td>${e.title}</td>
-                                                        <td>${e.author}</td>
-                                                        <td>${e.year}</td>
-                                                        <td>${e.genre}</td>
-                                                        <td>${e.isAvailable}</td>
-                                            `;
+                                                            <td>${e.id}</td>
+                                                            <td>${e.title}</td>
+                                                            <td>${e.author}</td>
+                                                            <td>${e.year}</td>
+                                                            <td>${e.genre}</td>
+                                                            <td>${e.isAvailable}</td>
+                                                `;
 
                         tbody.appendChild(tr); // Hozzáadjuk az új sort a táblázat testéhez
                     });
