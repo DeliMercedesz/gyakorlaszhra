@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Könyvek Táblázat</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- UJ KÖNYV-->
+    <p><input id="cim" type="text" placeholder="Add meg a könyv címét"></p>
+    <p><input id="szerzo" type="text"  placeholder="Add meg a könyv szerzőjét"></p>
+    <p><input id="ev" type="text"  placeholder="Add meg a könyv évét"></p>
+    <p><input id="mufaj" type="text" placeholder="műfaját"></p>
+    <p><input id="elerheto" type="checkbox" placeholder="elérhető?"></p>
+
+    <p><button id="ujkonyvgomb">Új könyv</button></p>
+    
+    <!-- GOMB AZ ADAT BETÖLTÉSHEZ-->
+    <p><button id="megjelenítőGomb">Összes könyv megjelenítése</button></p>
+
+
+    <h1>Könyvek</h1> <!-- Első sorban ez jelenk meg -->
+    <table>
+        <thead>
+            <tr>
+                <!-- Ez a táblák neve -->
+                <th>ID</th>
+                <th>Cím</th>
+                <th>Szerző</th>
+                <th>Kiadás Éve</th>
+                <th>Műfaj</th>
+                <th>Elérhetőség</th>
+            </tr>
+        </thead>
+        <tbody id="tb_konyvek">
+            <!--Ezzel hivatkozunk a táblára később-->
+        </tbody>
+    </table>
+    <!-- Itt jön a script, az api/Book a controllers api-ban van -->
+    <script>
+        //itt van az uj konyv hozzáadása
+        document.getElementById("ujkonyvgomb").addEventListener("click", _ => {
+            //ez megy a json-ba
+            var bookData = {
+
+                //a post metódusból böngészőn átmásolom
+                "title": document.getElementById("cim").value,
+                "author": document.getElementById("szerzo").value,
+                "year": document.getElementById("ev").value,
+                "genre": document.getElementById("mufaj").value,
+                "isAvailable": document.getElementById("elerheto").checked
+            }
+
+            fetch("api/book", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(bookData)
+            })
+                .then(v => {
+                    if (v.ok) {
+                        alert("Siker");
+                    } else {
+                        alert("Hiba");
+                    }
+                });
+
+        });
+
+
+        //Itt csináljuk a gombos részt
+        document.getElementById("megjelenítőGomb").addEventListener("click", _ => {
+            //Adatok megjelenítése
+            fetch("api/Book")
+                .then((v) => v.json())
+                .then((o) => {
+                    let tbody = document.getElementById("tb_konyvek");
+                    tbody.innerHTML = "";
+
+                    // Bejárjuk az adatokat és hozzáadjuk őket a táblázathoz
+                    o.forEach((e) => {
+                        let tr = document.createElement("tr");
+                        //itt megkell nézni milyen táblák vannak
+                        tr.innerHTML = `
+                                                        <td>${e.id}</td>
+                                                        <td>${e.title}</td>
+                                                        <td>${e.author}</td>
+                                                        <td>${e.year}</td>
+                                                        <td>${e.genre}</td>
+                                                        <td>${e.isAvailable}</td>
+                                            `;
+
+                        tbody.appendChild(tr); // Hozzáadjuk az új sort a táblázat testéhez
+                    });
+                })
+        }
+        )
+
+    </script>
+</body>
+</html>

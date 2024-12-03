@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gyakorlaszhra", "gyakorlaszhra\gyakorlaszhra.csproj", "{435D5CEB-F0B1-4A75-B9D5-C97DD621B21D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ezawinformapp", "ezawinformapp\ezawinformapp.csproj", "{33AD4423-88FE-45FA-B122-78F5FDCC9CC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{435D5CEB-F0B1-4A75-B9D5-C97DD621B21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{435D5CEB-F0B1-4A75-B9D5-C97DD621B21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{435D5CEB-F0B1-4A75-B9D5-C97DD621B21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{435D5CEB-F0B1-4A75-B9D5-C97DD621B21D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33AD4423-88FE-45FA-B122-78F5FDCC9CC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33AD4423-88FE-45FA-B122-78F5FDCC9CC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33AD4423-88FE-45FA-B122-78F5FDCC9CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33AD4423-88FE-45FA-B122-78F5FDCC9CC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1B481459-A0C8-48EE-81F7-7D4812024616}
+	EndGlobalSection
+EndGlobal
